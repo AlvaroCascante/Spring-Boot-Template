@@ -15,12 +15,18 @@ This document specifies the default set of rules for Copilot to use when generat
 - Use inline comments to explain complex logic.
 
 ### 3. Structure
-- Organize code into appropriate packages by layer (e.g., controller, service, repository).
+- Organize code into appropriate packages by layer (e.g., controller, service, model, repository).
 - Keep classes focused on a single responsibility.
-- Create interfaces for services and repositories.
-- Create DAO layer for database interactions.
-- Annotate DAO classes and rest controllers with `@JsonView`.
-- For each DAO create a DaoNameList and DaoNameDetail class to manage different views.
+- Create interfaces for services.
+- Model layer would work as database representation, no DTO's are going to be used.
+- For each Model create a ModelNameResponseView class that would contain these two classes
+  - `public static class ModelNameList extends ResponseView.Always {}`
+  - `public static class ModelNameDetail extends ModelNameList {}`
+- Annotate Model classes and rest controllers with `@JsonView`, this would make the works instead the DTO's.
+- Annotate classes with Lombok annotations.
+- Use `@Slf4j` for logging, add informational logs on API calls and error logs for exceptions.
+- For rest controllers respond with `ResponseEntity<T>`.
+- Include unit test cases for each method in the controller layer.
 
 ### 4. Exception Handling
 - Use custom exceptions for domain-specific errors.

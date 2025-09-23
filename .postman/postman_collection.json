@@ -1,0 +1,113 @@
+{
+	"info": {
+		"_postman_id": "f4820d0b-c992-4f33-a061-0df5a51894a4",
+		"name": "Spring Both Template",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "5067618"
+	},
+	"item": [
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/template/actuator/health",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"template",
+						"actuator",
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find All Executions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/template/api/executions",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"template",
+						"api",
+						"executions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Find By Id",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{HOST}}/template/api/executions/:id",
+					"host": [
+						"{{HOST}}"
+					],
+					"path": [
+						"template",
+						"api",
+						"executions",
+						":id"
+					],
+					"variable": [
+						{
+							"key": "id",
+							"value": "b3b46e3f-d946-40c5-a514-bf5953b3f9f7"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"auth": {
+		"type": "basic",
+		"basic": [
+			{
+				"key": "password",
+				"value": "d4b03a9d-4566-4e58-8976-1ce45ca3cfde",
+				"type": "string"
+			},
+			{
+				"key": "username",
+				"value": "user",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
