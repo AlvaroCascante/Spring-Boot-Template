@@ -1,16 +1,21 @@
 package com.quetoquenana.template.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.quetoquenana.template.model.Execution;
 import com.quetoquenana.template.model.ExecutionResponseView;
+import com.quetoquenana.template.model.ResponseView;
 import com.quetoquenana.template.service.ExecutionService;
+import com.quetoquenana.template.util.JsonViewPageUtil;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 
 import java.time.LocalDateTime;
@@ -109,5 +114,33 @@ class ExecutionControllerTest {
         assertEquals(ResponseEntity.notFound().build().getStatusCode(), response.getStatusCode());
         assertNull(response.getBody());
         verify(executionService, times(1)).getExecutionById(executionId);
+    }
+
+    @Test
+    void testGetExecutionsPage_ReturnsJsonViewPageUtil() throws Exception {
+        // Given: a page with one execution returned by the service
+        Page<Execution> page = new PageImpl<>(Collections.singletonList(execution), PageRequest.of(0, 10), 1);
+        when(executionService.getExecutionsPage(0, 10)).thenReturn(page);
+
+        // When: the controller's getExecutionsPage is called
+        ResponseEntity<JsonViewPageUtil<Execution>> response = executionController.getExecutionsPage(0, 10);
+
+        // Then: the response should be 200 OK and contain a JsonViewPageUtil
+        assertEquals(ResponseEntity.ok().build().getStatusCode(), response.getStatusCode());
+        assertNotNull(response.getBody());
+        // Serialize only the list of Execution objects with the view
+        String json = objectMapper.writerWithView(ExecutionResponseView.ExecutionList.class)
+                .writeValueAsString(response.getBody().getContent());
+        assertTrue(json.contains("id"));
+        assertTrue(json.contains("executedAt"));
+        assertTrue(json.contains("appVersion"));
+        assertTrue(json.contains("environment"));
+        assertFalse(json.contains("serverName"));
+        assertFalse(json.contains("ipAddress"));
+        // Also check pagination metadata
+        String metaJson = objectMapper.writerWithView(ResponseView.Always.class)
+                .writeValueAsString(response.getBody());
+        assertTrue(metaJson.contains("totalPages"));
+        assertTrue(metaJson.contains("totalElements"));
     }
 }

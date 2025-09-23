@@ -5,6 +5,8 @@ import com.quetoquenana.template.repository.ExecutionRepository;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 
 import java.net.InetAddress;
 import java.time.LocalDateTime;
@@ -49,5 +51,10 @@ public class ExecutionServiceImpl implements ExecutionService {
     @Override
     public Execution getExecutionById(UUID id) {
         return executionRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Page<Execution> getExecutionsPage(int page, int size) {
+        return executionRepository.findAll(PageRequest.of(page, size));
     }
 }
