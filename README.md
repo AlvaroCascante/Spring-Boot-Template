@@ -12,17 +12,21 @@ This repository is a template for creating new Spring Boot projects with a pre-c
 
 ## Included Dependencies
 
-This template includes the following dependencies by default:
+This template includes the following dependencies by default (as listed in `pom.xml`):
 
-- **Spring Boot DevTools**: For rapid development and automatic restarts.
-- **Lombok**: Simplifies Java code with annotations for boilerplate reduction.
-- **Docker Compose Support**: Easily run dependent services (e.g., databases) with Docker Compose.
-- **Spring Web**: Build RESTful web services and web applications.
-- **Spring Data JPA**: Simplifies data access and ORM with JPA.
-- **Spring Boot Actuator**: Provides monitoring and management endpoints.
-- **Spring Security**: Adds authentication and authorization capabilities.
-- **Flyway Migration**: Manages database schema migrations.
-- **PostgreSQL Driver**: Connects to PostgreSQL databases.
+- **Spring Boot Actuator** (`spring-boot-starter-actuator`): Monitoring and management endpoints.
+- **Spring Data JPA** (`spring-boot-starter-data-jpa`): Simplifies data access and ORM with JPA.
+- **Spring Security** (`spring-boot-starter-security`): Authentication and authorization capabilities.
+- **Spring Web** (`spring-boot-starter-web`): Build RESTful web services and web applications.
+- **Spring Boot Test** (`spring-boot-starter-test`, test scope): Testing support for Spring Boot applications.
+- **Spring HATEOAS** (`spring-boot-starter-hateoas`): Hypermedia-driven REST APIs.
+- **Flyway Core** (`flyway-core`): Database schema migrations.
+- **Flyway PostgreSQL Database Support** (`flyway-database-postgresql`): Flyway support for PostgreSQL.
+- **Spring Boot DevTools** (`spring-boot-devtools`, runtime, optional): Rapid development and automatic restarts.
+- **Spring Boot Docker Compose** (`spring-boot-docker-compose`, runtime, optional): Run dependent services with Docker Compose.
+- **PostgreSQL Driver** (`postgresql`, runtime): Connects to PostgreSQL databases.
+- **Lombok** (`lombok`, optional): Simplifies Java code with annotations for boilerplate reduction.
+- **Spring Security Test** (`spring-security-test`, test scope): Testing support for Spring Security.
 
 ## Security Configuration
 
@@ -50,6 +54,33 @@ This template includes a complete example of tracking application executions:
 - **Startup Logic:** Records a new execution each time the app starts.
 - **Unit Tests:** Comprehensive test cases for the controller and service, including JsonView and pagination.
 - **Postman Collection:** Example requests to test the API, stored in the `.postman` folder.
+
+## Internationalization (i18n) Support
+
+This template is ready for multi-language support using Spring Boot's internationalization features:
+
+- **Message Resource Files:**
+  - `src/main/resources/messages.properties` (default, English)
+  - `src/main/resources/messages_es.properties` (Spanish)
+- **Configuration:**
+  - See `src/main/java/com/quetoquenana/template/config/I18nConfig.java` for MessageSource and LocaleResolver beans.
+- **Usage:**
+  - Inject `MessageSource` into your services or controllers and use `messageSource.getMessage("welcome.message", null, locale)` to retrieve localized messages.
+  - The default locale is English; you can switch locales using the `SessionLocaleResolver` or by customizing locale resolution.
+  - Rest controllers use the `Accept-Language` header to set the locale.
+- **Adding More Languages:**
+  - Create additional files like `messages_fr.properties` for French, etc.
+
+Example usage in a service/controller:
+
+```java
+@Autowired
+private MessageSource messageSource;
+
+public String getWelcomeMessage(Locale locale) {
+    return messageSource.getMessage("welcome.message", null, locale);
+}
+```
 
 ## Getting Started
 

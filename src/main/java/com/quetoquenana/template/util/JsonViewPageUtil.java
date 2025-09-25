@@ -1,8 +1,8 @@
 package com.quetoquenana.template.util;
 
 import com.fasterxml.jackson.annotation.JsonView;
-import com.quetoquenana.template.model.ExecutionResponseView;
-import com.quetoquenana.template.model.ResponseView;
+import com.quetoquenana.template.model.ApiBaseResponseView;
+import com.quetoquenana.template.model.Execution;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -17,7 +17,7 @@ import java.util.List;
  * @param <T> The type of the content of the Page object.
  */
 @JsonView({
-        ExecutionResponseView.ExecutionList.class
+        Execution.ExecutionList.class
 })
 public class JsonViewPageUtil<T> extends PageImpl<T> {
 
@@ -34,37 +34,37 @@ public class JsonViewPageUtil<T> extends PageImpl<T> {
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     public int getTotalPages() {
         return super.getTotalPages();
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     public long getTotalElements() {
         return super.getTotalElements();
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     public boolean hasNext() {
         return super.hasNext();
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     public boolean isLast() {
         return super.isLast();
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     public boolean hasContent() {
         return super.hasContent();
     }
 
     @Override
-    @JsonView(ResponseView.Always.class)
+    @JsonView(ApiBaseResponseView.Always.class)
     @NonNull
     public List<T> getContent() {
         return super.getContent();

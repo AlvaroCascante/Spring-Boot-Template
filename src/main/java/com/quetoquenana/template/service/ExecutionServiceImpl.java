@@ -11,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import java.net.InetAddress;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -49,8 +50,8 @@ public class ExecutionServiceImpl implements ExecutionService {
     }
 
     @Override
-    public Execution getExecutionById(UUID id) {
-        return executionRepository.findById(id).orElse(null);
+    public Optional<Execution> getExecutionById(UUID id) {
+        return executionRepository.findById(id);
     }
 
     @Override
