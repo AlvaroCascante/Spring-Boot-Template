@@ -100,7 +100,7 @@ public String getWelcomeMessage(Locale locale) {
    - Monitor API: `GET /actuator/health` (requires authentication)
 
 5. **Test with Postman:**
-   - Import the collection from the `.postman` folder and run example requests.
+   - Import the collection from the `postman/collections` folder and run example requests.
 
 ## Customization
 
