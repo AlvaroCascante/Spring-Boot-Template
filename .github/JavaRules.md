@@ -15,11 +15,11 @@ This document specifies the default set of rules for Copilot to use when generat
 - Use inline comments to explain complex logic.
 
 ### 3. Structure
-- Organize code into appropriate packages by layer (e.g., controller, service, model, repository).
+- Organize code into appropriate packages by layer (e.g., controller, service, model, repository, exception).
 - Keep classes focused on a single responsibility.
 - Create interfaces for services.
 - Model layer would work as database representation, no DTO's are going to be used.
-- For each Model create a ModelNameResponseView class that would contain these two classes
+- For each Model in the same class create two public static classes as:
   - `public static class ModelNameList extends ResponseView.Always {}`
   - `public static class ModelNameDetail extends ModelNameList {}`
 - Annotate Model classes and rest controllers with `@JsonView`, this would make the works instead the DTO's.

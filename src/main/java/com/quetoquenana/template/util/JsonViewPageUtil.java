@@ -16,9 +16,7 @@ import java.util.List;
  *
  * @param <T> The type of the content of the Page object.
  */
-@JsonView({
-        Execution.ExecutionList.class
-})
+@JsonView(ApiBaseResponseView.Always.class)
 public class JsonViewPageUtil<T> extends PageImpl<T> {
 
     public JsonViewPageUtil(List<T> content, Pageable pageable, long total) {

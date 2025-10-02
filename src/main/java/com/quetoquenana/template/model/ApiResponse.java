@@ -32,7 +32,6 @@ public class ApiResponse {
         this.data = null;
     }
 
-
     public ApiResponse(Object data) {
         this.message = DEFAULT_SUCCESS_MESSAGE;
         this.errorCode = DEFAULT_ERROR_CODE;
